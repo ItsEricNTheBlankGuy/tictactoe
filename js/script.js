@@ -1,12 +1,17 @@
 
 
+var counter = 0;
 
-
-
+function performLogic(whatButton, whatTile) {
+  counter = counter + 1;
+  if ()
+}
 
 
 $("#button1").click(function() {
     performLogic("#button1","#tile1");
+    counter = counter + 1
+    console.log(counter);
 });
 
 $("#button2").click(function() {
