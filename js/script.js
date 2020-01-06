@@ -1,85 +1,121 @@
-class counter{
-  counter(value){
-    this.val = value;
-  }
+$(".second-tile").hide();
+$(".end").hide();
+var counter = 0;
+var draw = 0;
+var array = [0,0,0,0,0,0,0,0,0,0];
+
+function reveal() {
+  $(".tile").hide();
+  $(".second-tile").show();
+  $(".second-tile").css("background-color", "#474747");
+  $(".container").css("border", "groove 30px");
+  $(".container").css('border-color', "rgb(60,60,60)")
 }
 
-var clouler = 0;
-let counterRowOne = new counter(0);
-let counterRowTwo = new counter(0);
-let counterRowThree = new counter(0);
-let counterColumnOne = new counter(0);
-let counterColumnTwo = new counter(0);
-let counterColumnThree = new counter(0);
-let counterDiagonalOne = new counter(0);
-let counterDiagonalTwo = new counter(0);
-let counterDud = new counter(0);
-
-function performLogic(whatButton, whatTile, whatCounter, whatCounterTwo, whatCounterThree, whatCounterFour) {
-  clouler = clouler + 1;
-  $(whatButton).hide();
-  if(clouler % 2 === 0) {
-    $(whatTile).html("X");
-    whatCounter.val = whatCounter.val + 1;
-    whatCounterTwo.val = whatCounterTwo.val + 1;
-    whatCounterThree.val = whatCounterThree.val + 1;
-    whatCounterFour.val = whatCounterFour.val + 1;
-
+function performLogic(whatTile, whatReplacement, indexNum, indexNumTwo, indexNumThree, indexNumFour) {
+  draw += 1;
+  counter += 1;
+  $(whatTile).hide();
+  if (counter % 2 === 0) {
+    $(whatReplacement).html("X");
+    array[indexNum] += 1;
+    array[indexNumTwo] += 1;
+    array[indexNumThree] += 1;
+    array[indexNumFour] += 1;
   } else {
-    $(whatTile).html("O");
-    whatCounter.val = whatCounter.val + 4;
-    whatCounterTwo.val = whatCounterTwo.val + 4;
-    whatCounterThree.val = whatCounterThree.val + 4;
-    whatCounterFour.val = whatCounterFour.val + 4;
+    $(whatReplacement).html("O");
+    array[indexNum] += 4;
+    array[indexNumTwo] += 4;
+    array[indexNumThree] += 4;
+    array[indexNumFour] += 4;
+  }
+  array[8] = 0;
+  array[9] = 0;
+  $(whatReplacement).css("background-color", "#474747");
+  $(whatReplacement).show();
+  array.forEach(function(element) {
+    if (element === 3) {
+      $(".Xwin").show();
+      reveal();
+    } else if (element === 12) {
+      $(".Owin").show();
+      reveal();
+    }
+  });
+  if (draw === 9) {
+    $(".None").show();
+    reveal();
   }
   
 }
 
-// function ifAlot() {
-  //if(counterColumnOne === 3 || counterColumnTwo === 3 || counterColumnThree === 3 || counterRowOne === 3 || counterRowTwo === 3 || counterRowThree === 3 || counterDiagonalOne === 3 || counterDiagonalTwo === 3) {
- //   $("h3").text("X is the winner of your face!")
-  //} else if (counterColumnOne === 12 || counterColumnTwo === 12 || counterColumnThree === 12 || counterRowOne === 12 || counterRowTwo === 12 || counterRowThree === 12 || counterDiagonalOne === 12 || counterDiagonalTwo === 12) {
-  //  $("h3").text("O is the winner of your face!")
- // } else if
-//}
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
 
+let fontArray = ["'Girassol', cursive", "'Roboto Mono', monospace", "'Permanent Marker', cursive", "'Special Elite', cursive", "'Bangers', cursive", "'Press Start 2P', cursive", "'Sigmar One', cursive", "'Marck Script', cursive", "'Nothing You Could Do', cursive"];
+let colorsArray = ["deeppink", "orange", "magenta", "lightyellow", "lime", "aqua", "blue", "crimson", "gold"];
 
-$("#button1").click(function() {
-    performLogic("#button1","#tile1", counterRowOne, counterColumnOne,counterDiagonalOne,counterDud);
-    console.log(counterDud);
-    
+shuffle(fontArray);
+shuffle(colorsArray);
+
+function fontChange(whatTile, indexNum) {
+  $(whatTile).css("font-family", fontArray[indexNum]);
+  $(whatTile).css("color", colorsArray[indexNum]);
+}
+
+$("#tile1").click(function() {
+    performLogic("#tile1", "#tile1-2", 0, 3, 6, 8);
+    fontChange("#tile1-2", 0);
 });
 
-$("#button2").click(function() {
-    performLogic("#button2","#tile2", counterRowOne, counterColumnTwo, counterDud, counterDud);
+$("#tile2").click(function() {
+    performLogic("#tile2", "#tile2-2", 0, 4, 8, 9);
+    fontChange("#tile2-2", 1);
 });
 
-$("#button3").click(function() {
-    performLogic("#button3","#tile3", counterRowOne, counterColumnThree,counterDiagonalTwo, counterDud);
+$("#tile3").click(function() {
+    performLogic("#tile3", "#tile3-2", 0, 5, 7, 8);
+    fontChange("#tile3-2", 2);
 });
 
-$("#button4").click(function() {
-    performLogic("#button4","#tile4", counterRowTwo, counterColumnOne,counterDud, counterDud);
+$("#tile4").click(function() {
+    performLogic("#tile4", "#tile4-2", 1, 3, 8, 9);
+    fontChange("#tile4-2", 3);
 });
 
-$("#button5").click(function() {
-    performLogic("#button5","#tile5", counterRowTwo, counterColumnTwo,counterDiagonalOne, counterDiagonalTwo);
+$("#tile5").click(function() {
+    performLogic("#tile5", "#tile5-2", 1, 4, 6, 7);
+    fontChange("#tile5-2", 4);
 });
 
-$("#button6").click(function() {
-    performLogic("#button6","#tile6", counterRowTwo, counterColumnThree, counterDud, counterDud);
+$("#tile6").click(function() {
+    performLogic("#tile6", "#tile6-2", 1, 5, 8, 9);
+    fontChange("#tile6-2", 5);
+    console.log(array[0]);
+  console.log(array[1]);
+  console.log(array[2]);
+  console.log(array[3]);
+  console.log(array[4]);
+  console.log(array[5]);
+  console.log(array[6]);
+  console.log(array[7]);
+  console.log(array[8]);
+  console.log(array[9]);
+  console.log("hi");
 });
 
-$("#button7").click(function() {
-    performLogic("#button7","#tile7", counterRowThree, counterColumnOne, counterDiagonalTwo, counterDud);
+$("#tile7").click(function() {
+    performLogic("#tile7", "#tile7-2", 2, 3, 7, 8);
+    fontChange("#tile7-2", 6);
 });
 
-$("#button8").click(function() {
-    performLogic("#button8","#tile8", counterRowThree, counterColumnTwo, counterDud,counterDud);
+$("#tile8").click(function() {
+    performLogic("#tile8", "#tile8-2", 2, 4, 8, 9);
+    fontChange("#tile8-2", 7);
 });
 
-$("#button9").click(function() {
-    performLogic("#button9","#tile9", counterRowThree, counterColumnThree, counterDud, counterDud);
-    console.log(counterDud);
+$("#tile9").click(function() {
+    performLogic("#tile9", "#tile9-2", 2, 5, 6, 8);
+    fontChange("#tile9-2", 8);
 });
-
