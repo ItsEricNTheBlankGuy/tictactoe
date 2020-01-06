@@ -1,18 +1,40 @@
+body {
+  background-color: #2e2e2e;
+}
+h1 {
+  color: whitesmoke;
+  text-align: center;
+  font-family: 'Righteous', cursive;
+  font-size: 5em;
+}
+.house {
+  display: flex;
+  justify-content: center;
+}
 .container {
-    width:50%;
-    display:flex;
-    flex-wrap:wrap;
+  text-align: center;
+  background-color: whitesmoke;
+  width: 600px;
+  height: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 17px;
 }
-
-.tile {
-    width:23%;
-    padding:5%;
+.container > div {
+  background-color:#2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 90px;
 }
-
-.right {
-    border-right: 1px solid black;
+.tile:hover {
+  background-color: #474747
 }
-
-.bottom {
-    border-bottom: 1px solid black;
+.end {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  font-family: 'Fredericka the Great', cursive;
+  margin-top: 150px;
+  margin-bottom: 300px;
 }
